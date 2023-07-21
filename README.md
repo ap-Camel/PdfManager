@@ -63,4 +63,4 @@ true
 - build the projct to insure dependencies -> dotnet build
 - run the project -> dotnet run
 - after running the project, the command line will show the port the project is running on
-- the API should now be accessible at http://localhost:<port>/swagger
+- the API should now be accessible at http://localhost:5030/swagger
