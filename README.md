@@ -8,7 +8,7 @@ The PDF Manager API is a .NET-based service that allows you to sign PDF document
 
 Endpoint to sign a provided PDF document with a provided certificate.
 
-**URL**: `/PdfController/sign-pdf`
+**URL**: `/Pdf/sign-pdf`
 
 **Method**: POST
 
