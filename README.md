@@ -55,6 +55,40 @@ Content-Type: text/plain
 true
 ```
 
+### Convert PDF to PDF/A3 Endpoint
+
+The "convert-to-PdfA" endpoint of the PDF Manager API allows you to convert a received PDF document to the PDF/A3 standard. PDF/A3 is an archival format for long-term preservation of electronic documents. This endpoint ensures that the converted PDF complies with the PDF/A3 standard, making it suitable for archiving and long-term storage.
+
+**URL**: `/Pdf/convert-to-PdfA`
+
+**Method**: POST
+
+**Parameters**:
+
+| Name      | Type          | Description                                  |
+|-----------|---------------|----------------------------------------------|
+| pdfFile   | File          | The PDF file to be converted to PDF/A3.     |
+
+**Response**:
+
+- HTTP Status: 200 OK
+- Content-Type: `application/pdf`
+- Content-Disposition: `attachment; filename="converted.pdf"`
+
+**Example Request**:
+
+```http
+POST /PdfController/convert-to-PdfA HTTP/1.1
+Content-Type: multipart/form-data; boundary=--------------------------1234567890
+Host: your-api-domain.com
+
+Content-Disposition: form-data; name="pdfFile"; filename="example.pdf"
+Content-Type: application/pdf
+
+<binary-data-of-pdf-file>
+```
+
+
 ## getting started
 
 - you need to have .NET installed on your machine
