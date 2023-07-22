@@ -24,5 +24,17 @@ namespace PdfManager.Verifications
                 throw new Exception("certificate file format is not supported");
             }
         }
+
+        public static void ValidateConvertoToPdfA(IFormFile pdfFile)
+        {
+            if (pdfFile == null)
+            {
+                throw new Exception("Pdf file is required");
+            }
+            if (pdfFile.ContentType != "application/pdf")
+            {
+                throw new Exception("File is not a pdf");
+            }
+        }
     }
 }

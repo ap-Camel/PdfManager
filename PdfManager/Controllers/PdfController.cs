@@ -20,6 +20,17 @@ namespace PdfManager.Controllers
             _pdfService = pdfService;   
         }
 
+        [HttpPost("convert-to-PdfA")]
+        [Description("convert the recived pdf to Pdf/A3 standard")]
+        [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
+        public IActionResult ConvertPDF(IFormFile pdfFile)
+        {
+            ValidateSignRequest.ValidateConvertoToPdfA(pdfFile);
+
+            var signedPDF = _pdfService.ConvertPdfToPdfA3(pdfFile);
+            return File(signedPDF, "application/pdf", "converted.pdf");
+        }
+
         //[HttpPost("sign-pdf")]
         //public IActionResult SignPdf(PdfSignRequestModel data)
         //{
