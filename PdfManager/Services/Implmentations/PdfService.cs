@@ -95,7 +95,7 @@ namespace PdfManager.Services.Implmentations
             using (var pdfStream = data.PdfFile.OpenReadStream())
             using (var signedMemoryStream = new MemoryStream())
             {
-                Pkcs12Store pk12 = new Pkcs12Store(cert, "password".ToCharArray());
+                Pkcs12Store pk12 = new Pkcs12Store(cert, data.password.ToCharArray());
                 string alias = null;
                 foreach (var a in pk12.Aliases)
                 {
