@@ -10,17 +10,26 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Pdfa;
 using iText.Signatures;
+using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.X509;
 using PdfManager.Models;
 using PdfManager.Services.Interfaces;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PdfManager.Services.Implmentations
 {
     public class PdfService : IPdfService
     {
+
+        private readonly string location = "Dotacni portal PK";
+        private readonly string signtureReason = "Podpis PDF";
+        private readonly int width = 160;
+        private readonly int height = 55;
 
         public byte[] ConvertPdfToPdfA3(IFormFile pdfFile)
         {
@@ -63,36 +72,55 @@ namespace PdfManager.Services.Implmentations
         }
 
         public byte[] SignPdf(PdfSignRequestModel data)
-        {            
-            string signtureReason = "signing Pdf";
-            string location = "my location";
+        {
             int signCount = 0;
-            int xAxis = 0, width = 100, pageCount = 0;
+            int xAxis = 10, pageCount = 0, yAxis = 0;
 
-            //ICollection<byte> bytes = new Collection<byte>();
+            byte[] bytes = null;
 
+            bool added = false;
             using (var pdfStream = data.PdfFile.OpenReadStream())
-            //using (var pdfMemoryStream = new MemoryStream())
+            using (var pdfMemoryStream = new MemoryStream())
             {
                 //PdfWriter writer = new PdfWriter(pdfMemoryStream);
                 PdfReader reader = new PdfReader(pdfStream);
                 //PdfDocument pdfDoc = new PdfDocument(reader, writer);
                 PdfDocument pdfDoc = new PdfDocument(reader);
+                int defaultheight = (int)pdfDoc.GetDefaultPageSize().GetHeight();
                 pageCount = pdfDoc.GetNumberOfPages();
                 SignatureUtil signUtil = new SignatureUtil(pdfDoc);
                 signCount = signUtil.GetSignatureNames().Count;
                 //xAxis = ((signCount % 4) * width) + 5;
-                xAxis = (signCount * width) + 5;
+                //xAxis = (signCount * width) + 5;
+                yAxis = defaultheight - ((signCount * height) + 15) - height;
+                //int bbb = (signCount % 6);
+                //xAxis = bbb * width + 5;
 
-                //if (signCount > 2)
-                //    pdfDoc.AddNewPage();
+                if(signCount == 0)
+                {
+                    //pdfDoc.AddNewPage();
+                    bytes = AddEmptyPage(data.PdfFile);
+                    pageCount++;
+                    added = true;
+                    yAxis -= 20;
+                } 
+                //else
+                //{
+                //    using (var streamReader = new BinaryReader(pdfStream))
+                //    {
+                //        bytes = streamReader.ReadBytes((int)pdfStream.Length);
+                //    }
+                //}                
 
-                //pageCount = pdfDoc.GetNumberOfPages();
+                //pdfDoc.Close();
                 //bytes = pdfMemoryStream.ToArray();
+
+
             }
 
             using (var cert = data.CertificateFile.OpenReadStream())
-            using (var pdfStream = data.PdfFile.OpenReadStream())
+            //using (var pdfStream = data.PdfFile.OpenReadStream())
+            using(Stream pdfStream = added ? new MemoryStream(bytes) : data.PdfFile.OpenReadStream())
             using (var signedMemoryStream = new MemoryStream())
             {
                 Pkcs12Store pk12 = new Pkcs12Store(cert, data.password.ToCharArray());
@@ -127,9 +155,13 @@ namespace PdfManager.Services.Implmentations
                 }
 
                 string FONT = "resources/FreeSans.ttf";
+                int nameIndex = chain[0].SubjectDN.GetOidList().IndexOf(new DerObjectIdentifier("2.5.4.3"));
+                string name = string.Empty;
+                if (nameIndex != -1)
+                    name = chain[0].SubjectDN.GetValueList()[nameIndex].ToString();
 
                 //Signture appearance
-                iText.Kernel.Geom.Rectangle rect = new iText.Kernel.Geom.Rectangle(xAxis, 36, width, 50);
+                iText.Kernel.Geom.Rectangle rect = new iText.Kernel.Geom.Rectangle(xAxis, yAxis, width, height);
                 PdfSignatureAppearance appearance = signer.GetSignatureAppearance()
                     .SetReason(signtureReason)
                     .SetLocation(location)
@@ -139,12 +171,12 @@ namespace PdfManager.Services.Implmentations
                     .SetLayer2Font(PdfFontFactory.CreateFont(FONT, PdfEncodings.WINANSI))
                     .SetLayer2FontSize(12)
                     .SetLayer2FontColor(ColorConstants.BLACK)
-                    .SetCertificate(certificateWrappers[0]);
+                    .SetLayer2Text($"Digitálně podepsáno:\n{name}")                
+                    .SetCertificate(certificateWrappers[0]);           
 
                 if (signCount > 4)
                     appearance.IsInvisible();
-
-
+                
                 signer.SetSignDate(DateTime.Now);
                 signer.SetFieldName(Guid.NewGuid().ToString());
                 signer.SetCertificationLevel(data.author ? PdfSigner.CERTIFIED_FORM_FILLING : PdfSigner.NOT_CERTIFIED);
@@ -152,6 +184,26 @@ namespace PdfManager.Services.Implmentations
                 signer.SignDetached(pks, certificateWrappers, null, null, null, 0, PdfSigner.CryptoStandard.CMS);
                 return signedMemoryStream.ToArray();
             }
+        }
+
+        public byte[] AddEmptyPage(IFormFile PdfFile)
+        {
+            byte[] data;
+
+            using (var pdfStream = PdfFile.OpenReadStream())
+            using (var pdfMemoryStream = new MemoryStream())
+            {
+                PdfWriter writer = new PdfWriter(pdfMemoryStream);
+                PdfReader reader = new PdfReader(pdfStream);
+                PdfDocument pdfDoc = new PdfDocument(reader, writer);
+
+                pdfDoc.AddNewPage();
+
+                pdfDoc.Close();
+                data = pdfMemoryStream.ToArray();
+            }
+
+            return data;
         }
     }
 }

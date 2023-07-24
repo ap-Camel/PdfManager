@@ -8,8 +8,8 @@ namespace PdfManager.Models
         public IFormFile PdfFile { get; set; }
         [Required]
         public IFormFile CertificateFile { get; set; }
-        [Required]
-        public string password { get; set; }
+        
+        public string? password { get; set; } = string.Empty;
         [Required]
         public bool author { get; set; }
     }
