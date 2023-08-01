@@ -5214,23 +5214,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ayman\\.nuget\\packages\\": {},
+    "C:\\Users\\ayman\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\Work\\pdfSignAndConvrt\\PdfManager\\PdfManager\\PdfManager.csproj",
+      "projectUniqueName": "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
       "projectName": "PdfManager",
-      "projectPath": "C:\\Dev\\Work\\pdfSignAndConvrt\\PdfManager\\PdfManager\\PdfManager.csproj",
-      "packagesPath": "C:\\Users\\Ayman\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\Work\\pdfSignAndConvrt\\PdfManager\\PdfManager\\obj\\",
+      "projectPath": "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
+      "packagesPath": "C:\\Users\\ayman\\.nuget\\packages\\",
+      "outputPath": "C:\\dev\\work\\PdfManager\\PdfManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ayman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ayman\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5298,7 +5298,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   },
