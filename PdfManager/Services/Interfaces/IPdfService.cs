@@ -6,5 +6,8 @@ namespace PdfManager.Services.Interfaces
     {
         byte[] ConvertPdfToPdfA3(IFormFile pdfFile);
         byte[] SignPdf(PdfSignRequestModel data);
+        byte[] AddEmptyPage(IFormFile PdfFile);
+        byte[] AddImage(IFormFile PdfFile, SignatureBox signatureBox);
+        //byte[] signPDFTemp(IFormFile pdfFile, IFormFile certificate);
     }
 }

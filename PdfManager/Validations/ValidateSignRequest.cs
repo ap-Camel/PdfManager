@@ -25,7 +25,7 @@ namespace PdfManager.Verifications
             }
         }
 
-        public static void ValidateConvertoToPdfA(IFormFile pdfFile)
+        public static void ValidatePdfOnly(IFormFile pdfFile)
         {
             if (pdfFile == null)
             {

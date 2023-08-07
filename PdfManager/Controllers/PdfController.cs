@@ -25,7 +25,7 @@ namespace PdfManager.Controllers
         [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
         public IActionResult ConvertPDF(IFormFile pdfFile)
         {
-            ValidateSignRequest.ValidateConvertoToPdfA(pdfFile);
+            ValidateSignRequest.ValidatePdfOnly(pdfFile);
 
             var signedPDF = _pdfService.ConvertPdfToPdfA3(pdfFile);
             return File(signedPDF, "application/pdf", "converted.pdf");
@@ -43,15 +43,35 @@ namespace PdfManager.Controllers
         [HttpPost("sign-pdf")]
         [Description("signs provided pdf document with provided certificate")]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
-        public IActionResult SignPdf(IFormFile pdfFile, IFormFile certificate, string password, bool author)
+        public IActionResult SignPdf([FromQuery]SignatureBox signatureBox, IFormFile pdfFile, IFormFile certificate, string password, bool author)
         {
-            var data = new PdfSignRequestModel { PdfFile = pdfFile, CertificateFile = certificate, password = password, author = author };
+            var data = new PdfSignRequestModel { PdfFile = pdfFile, CertificateFile = certificate, password = password, author = author, signatureBox = signatureBox };
             ValidateSignRequest.Validate(data);
 
             var signedPDF = _pdfService.SignPdf(data);
             return File(signedPDF, "application/pdf", "signed.pdf");
         }
 
-        // testing changing //
+        [HttpPost("add-new-page")]
+        [Description("adds new empty page to the provided pdf")]
+        [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "new page was added successfully")]
+        public IActionResult AddNewPage(IFormFile pdfFile)
+        {
+            ValidateSignRequest.ValidatePdfOnly(pdfFile);
+
+            var signedPDF = _pdfService.AddEmptyPage(pdfFile);
+            return File(signedPDF, "application/pdf", "converted.pdf");
+        }
+
+        //[HttpPost("add-image")]
+        //[Description("adds signature image to the provided pdf")]
+        //[SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "new page was added successfully")]
+        //public IActionResult AddImage(IFormFile pdfFile)
+        //{
+        //    ValidateSignRequest.ValidatePdfOnly(pdfFile);
+
+        //    var signedPDF = _pdfService.AddImage(pdfFile, new SignatureBox { text = "fff", xAxis = 0, yAxis = 100});
+        //    return File(signedPDF, "application/pdf", "withImage.pdf");
+        //}
     }
 }

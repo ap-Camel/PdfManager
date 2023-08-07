@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Eit4pswsbF1PCVfClLsuDbNWc2Ipq/LfPJoPRsjHrc0hmyIkt4RrChQDzybitWdTn1o6Iq45XxxQDDUbPFzN/A==",
+  "dgSpecHash": "EupuAH1dcbhV4AUzWNeB6PjCO6IFhuidcUzGxeXsXyTI88HLWO2yQTdsB1uFYcjJLMX6y4YMZbe5Ris5jE/HVA==",
   "success": true,
   "projectFilePath": "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\ayman\\.nuget\\packages\\itext7.commons\\8.0.0\\itext7.commons.8.0.0.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\microsoft.aspnet.webapi.client\\4.0.20710\\microsoft.aspnet.webapi.client.4.0.20710.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\microsoft.aspnet.webapi.core\\4.0.20710\\microsoft.aspnet.webapi.core.4.0.20710.nupkg.sha512",
+    "C:\\Users\\ayman\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.1.0\\microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
+    "C:\\Users\\ayman\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning.apiexplorer\\5.1.0\\microsoft.aspnetcore.mvc.versioning.apiexplorer.5.1.0.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.2\\microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\1.1.0\\microsoft.dotnet.platformabstractions.1.1.0.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
