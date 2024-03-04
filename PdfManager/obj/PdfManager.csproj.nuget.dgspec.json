@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj": {}
+    "c:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj": {}
   },
   "projects": {
-    "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj": {
+    "c:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
+        "projectUniqueName": "c:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
         "projectName": "PdfManager",
-        "projectPath": "C:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
+        "projectPath": "c:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
         "packagesPath": "C:\\Users\\ayman\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\work\\PdfManager\\PdfManager\\obj\\",
+        "outputPath": "c:\\dev\\work\\PdfManager\\PdfManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,7 +22,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -42,12 +42,12 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": {
+            "Asp.Versioning.Mvc.ApiExplorer": {
               "target": "Package",
-              "version": "[5.1.0, )"
+              "version": "[8.0.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -57,9 +57,17 @@
               "target": "Package",
               "version": "[6.4.0, )"
             },
-            "Swashbuckle.Core": {
+            "Swashbuckle.AspNetCore.Annotations": {
               "target": "Package",
-              "version": "[5.6.0, )"
+              "version": "[6.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             },
             "itext7": {
               "target": "Package",
@@ -89,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,7 +4,7 @@ using PdfManager.Models;
 using PdfManager.Services.Implmentations;
 using PdfManager.Services.Interfaces;
 using PdfManager.Verifications;
-using Swashbuckle.Swagger.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -22,7 +22,7 @@ namespace PdfManager.Controllers
 
         [HttpPost("convert-to-PdfA")]
         [Description("convert the recived pdf to Pdf/A3 standard")]
-        [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
         public IActionResult ConvertPDF(IFormFile pdfFile)
         {
             ValidateSignRequest.ValidatePdfOnly(pdfFile);
@@ -42,7 +42,7 @@ namespace PdfManager.Controllers
 
         [HttpPost("sign-pdf")]
         [Description("signs provided pdf document with provided certificate")]
-        [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "pdf was signed successfully")]
         public IActionResult SignPdf([FromQuery]SignatureBox signatureBox, IFormFile pdfFile, IFormFile certificate, string password, bool author)
         {
             var data = new PdfSignRequestModel { PdfFile = pdfFile, CertificateFile = certificate, password = password, author = author, signatureBox = signatureBox };
@@ -54,7 +54,7 @@ namespace PdfManager.Controllers
 
         [HttpPost("add-new-page")]
         [Description("adds new empty page to the provided pdf")]
-        [SwaggerResponse(System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "new page was added successfully")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, type: typeof(FileContentResult), description: "new page was added successfully")]
         public IActionResult AddNewPage(IFormFile pdfFile)
         {
             ValidateSignRequest.ValidatePdfOnly(pdfFile);

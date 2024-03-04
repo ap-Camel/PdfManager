@@ -15,19 +15,19 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services
-                        .AddApiVersioning(x =>
-                        {
-                            x.AssumeDefaultVersionWhenUnspecified = true;
-                            x.DefaultApiVersion = new ApiVersion(1, 1);
-                            x.ReportApiVersions = true;
-                        })
-                        .AddVersionedApiExplorer(x =>
-                        {
-                            x.GroupNameFormat = "'v'VVV";
-                            x.SubstituteApiVersionInUrl = true;
-                        })
-                        .AddEndpointsApiExplorer();
+        //builder.Services
+        //                .AddApiVersioning(x =>
+        //                {
+        //                    x.AssumeDefaultVersionWhenUnspecified = true;
+        //                    x.DefaultApiVersion = new ApiVersion(1, 1);
+        //                    x.ReportApiVersions = true;
+        //                })
+        //                .AddVersionedApiExplorer(x =>
+        //                {
+        //                    x.GroupNameFormat = "'v'VVV";
+        //                    x.SubstituteApiVersionInUrl = true;
+        //                })
+        //                .AddEndpointsApiExplorer();
 
         builder.Services.AddSwaggerGen();
 
