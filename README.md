@@ -98,3 +98,12 @@ Content-Type: application/pdf
 - run the project -> dotnet run
 - after running the project, the command line will show the port the project is running on
 - the API should now be accessible at http://localhost:5030/swagger
+
+
+## build `.exe` files
+
+- you need to have .NET installed on your machine
+- clone the project on your computer
+- open the command line in the projct directory
+- for windows: `dotnet publish -r win-x64 -c Release --self-contained true /p:PublishSingleFile=true`
+- for linux: `dotnet publish -r linux-x64 -c Release --self-contained true /p:PublishSingleFile=true`

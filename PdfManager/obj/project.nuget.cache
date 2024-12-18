@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IF5FjjObl22S9VNwjqO+O0bN25VK5JvL3CDncC0rt7D/X3SE+x+y0U+iHEL8XFC10a0VlZMUZunXpbbTfd/Ejw==",
+  "dgSpecHash": "a4rknG/34P9h5Sl/gMM91UQeofM5OlV36HWXgCHvkkG4Hl4/t9FnfSokXLpCXx35pQtkcMjptvl9X5zK3z6RlQ==",
   "success": true,
-  "projectFilePath": "c:\\dev\\work\\PdfManager\\PdfManager\\PdfManager.csproj",
+  "projectFilePath": "C:\\dev\\learning\\pdfManager\\PdfManager\\PdfManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ayman\\.nuget\\packages\\asp.versioning.abstractions\\8.0.0\\asp.versioning.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\ayman\\.nuget\\packages\\asp.versioning.http\\8.0.0\\asp.versioning.http.8.0.0.nupkg.sha512",

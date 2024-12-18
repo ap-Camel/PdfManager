@@ -1,8 +1,6 @@
 ﻿using iText.Bouncycastle.Crypto;
 using iText.Bouncycastle.X509;
 using iText.Commons.Bouncycastle.Cert;
-using iText.IO.Font;
-using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
@@ -11,7 +9,6 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Renderer;
 using iText.Pdfa;
 using iText.Signatures;
 using Org.BouncyCastle.Asn1;
@@ -20,10 +17,6 @@ using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.X509;
 using PdfManager.Models;
 using PdfManager.Services.Interfaces;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PdfManager.Services.Implmentations
 {
@@ -43,37 +36,49 @@ namespace PdfManager.Services.Implmentations
         public byte[] ConvertPdfToPdfA3(IFormFile pdfFile)
         {
             using (var memoryStream = new MemoryStream())
+            using (var inputStream = pdfFile.OpenReadStream())
+            using (var pdfReader = new PdfReader(inputStream))
+            using (var pdfWriter = new PdfWriter(memoryStream))
             {
-                // Initialize PDF/A document with output intent
-                iText.Pdfa.PdfADocument pdfA = new PdfADocument(
-                    new iText.Kernel.Pdf.PdfWriter(memoryStream),
-                    iText.Kernel.Pdf.PdfAConformanceLevel.PDF_A_3B,
-                    new PdfOutputIntent(
-                        "Custom",
-                        "", "http://www.color.org",
-                        "sRGB IEC61966-2.1",
-                        new FileStream("Resources/sRGB_CS_profile.icm", FileMode.Open, FileAccess.Read)
-                    )
-                );
+                var assembly = typeof(PdfService).Assembly;
 
-                // Load the source PDF document from the memory stream
-                iText.Kernel.Pdf.PdfDocument pdfDocument = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfReader(pdfFile.OpenReadStream()));
+                var resourceName = assembly.GetManifestResourceNames()
+                    .FirstOrDefault(n => n.EndsWith("sRGB_CS_profile.icm"));
 
-                // Copy the pages from the source PDF to the PDF/A document
-                for (int pageNumber = 1; pageNumber <= pdfDocument.GetNumberOfPages(); pageNumber++)
+                if (resourceName == null)
+                    throw new Exception("Embedded ICC profile resource not found. Check your resource name and embedding settings.");
+
+                using (var iccStream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    PdfPage page = pdfA.AddNewPage();
-                    PdfCanvas canvas = new PdfCanvas(page);
-                    PdfFormXObject pageCopy = pdfDocument.GetPage(pageNumber).CopyAsFormXObject(pdfA);
-                    canvas.AddXObjectAt(pageCopy, 0, 0);
+                    var pdfA = new PdfADocument(
+                        pdfWriter,
+                        PdfAConformanceLevel.PDF_A_3B,
+                        new PdfOutputIntent(
+                            "Custom",
+                            "",
+                            "http://www.color.org",
+                            "sRGB IEC61966-2.1",
+                            iccStream
+                        )
+                    );
+
+                    var pdfDocument = new PdfDocument(pdfReader);
+
+                    // Copy pages
+                    for (int pageNumber = 1; pageNumber <= pdfDocument.GetNumberOfPages(); pageNumber++)
+                    {
+                        PdfPage page = pdfA.AddNewPage();
+                        PdfCanvas canvas = new PdfCanvas(page);
+                        PdfFormXObject pageCopy = pdfDocument.GetPage(pageNumber).CopyAsFormXObject(pdfA);
+                        canvas.AddXObjectAt(pageCopy, 0, 0);
+                    }
+
+                    // Close documents
+                    pdfDocument.Close();
+                    pdfA.Close();
+
+                    return memoryStream.ToArray();
                 }
-
-                // Close the document and save changes
-                pdfA.Close();
-                pdfDocument.Close();
-
-                // Return the byte array of the PDF/A document
-                return memoryStream.ToArray();
             }
         }
 

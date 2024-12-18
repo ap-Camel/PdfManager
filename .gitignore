@@ -357,9 +357,3 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-
-# Fody - auto-generated XML schema
-FodyWeavers.xsd
-/src/Cir.Rest.Api/appsettings.Development.json
-/docker/cir/build.sh
-/ci/custom-integration-tests.sh
