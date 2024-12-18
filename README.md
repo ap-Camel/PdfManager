@@ -107,3 +107,4 @@ Content-Type: application/pdf
 - open the command line in the projct directory
 - for windows: `dotnet publish -r win-x64 -c Release --self-contained true /p:PublishSingleFile=true`
 - for linux: `dotnet publish -r linux-x64 -c Release --self-contained true /p:PublishSingleFile=true`
+- after running, application will start listening on `http://localhost:5000`
